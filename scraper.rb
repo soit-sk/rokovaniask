@@ -40,7 +40,7 @@ def scrap_list
 end
 
 scrap_list do |list_item|
-  meta_data = {:date => list_item[:date], :num => list_item[:num]}
+  meta_data = {:date => list_item[:date], :num => list_item[:agenda_num]}
   list_item[:materials].each do |material|
     ScraperWiki.save(['unique_id'], material.merge(meta_data))
   end
