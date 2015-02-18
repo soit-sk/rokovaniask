@@ -16,11 +16,16 @@ end
 def parse_program(materials)
   materials.at('div#contentDR').search('div div span.column_r a').collect do |material_name|
     next if is_header? material_name.parent.parent
-    { 
+
+    if material_name.parent.parent.search('span.column_r').size < 7
+      status = ''
+    end
+
+    {
       "title" => material_name.text.strip,
       "unique_id" => material_name.parent.parent.search('span.column_r')[2].text.strip,
       "proposed_by" => material_name.parent.parent.search('span.column_r')[4].text.strip,
-      "status" => material_name.parent.parent.search('span.column_r')[6].text.strip,
+      "status" => status || material_name.parent.parent.search('span.column_r')[6].text.strip,
     }
   end
 end
